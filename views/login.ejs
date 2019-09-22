@@ -1,0 +1,57 @@
+<%- include('includes/htmlHeader', {title: 'Login Page'}); %> 
+    <style>
+        body {
+            background-color: #DADADA;
+        }
+        body > .grid {
+            height: 100%;
+        }
+        .column {
+            max-width: 450px;
+        }
+        .field label {
+            text-align: left
+        }
+    </style>
+    </head>
+<body>
+
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        <form method="POST" action="/users/login" class="ui large form">
+        <div class="ui stacked segment">
+            <h2>Login Account</h2>
+            <div class="field">
+            <label>Username</label>
+            <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input required type="text" name="username" placeholder="Enter your username">
+            </div>
+            </div>
+            <div class="field">
+            <label>Password</label>
+            <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input required type="password" name="password" placeholder="Enter your password">
+            </div>
+            </div>
+            <button class="ui fluid large blue button" type="submit">Login</button>
+            <% if(error.length > 0) { %>
+                <div class="ui visible error message">
+                    <div class="header">
+                        There were some error(s) with your submission
+                    </div>
+                    <ul class="list">
+                    <li><%=error%></li>
+                    </ul>
+                </div>
+                <% } %>
+        </div>
+        </form>
+        <div class="ui message">
+        Don't have an account? <a href="/register">Click here to register</a>
+        </div>
+    </div>
+</div>
+      
+<%- include('includes/htmlFooter'); %>

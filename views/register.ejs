@@ -1,0 +1,77 @@
+<%- include('includes/htmlHeader', {title: 'Register Page'}); %> 
+
+<style>
+        body {
+            background-color: #DADADA;
+        }
+        body > .grid {
+            height: 100%;
+        }
+        .column {
+            max-width: 450px;
+        }
+        .field label {
+            text-align: left
+        }
+    </style>
+    </head>
+<body>
+
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        <form method="POST" action="/users/register" class="ui large form">
+        <div class="ui stacked segment">
+            <h2>Register Account</h2>
+            <div class="field">
+            <label>Username</label>
+            <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input required type="text" name="username" placeholder="Enter your username">
+            </div>
+            </div>
+            <div class="field">
+            <label>Password</label>
+            <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input required type="password" name="password" placeholder="Enter your password">
+            </div>
+            </div>
+            <div class="field">
+            <label>Confirm Password</label>
+            <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input required type="password" name="confirmPassword" placeholder="Confirm your password">
+            </div>
+            </div>
+            <button class="ui fluid large blue button" type="submit">Register</button>
+            <% if(success.length > 0) { %>
+                <div class="ui visible success message">
+                    <div class="header">
+                        Registration sucessful! You may now log-in
+                    </div>
+                </div>
+            <% } %>
+            <% if(errors.length > 0) { %>
+            <div class="ui visible error message">
+                <div class="header">
+                    There were some error(s) with your submission
+                </div>
+                <ul class="list">
+                    <% errors.forEach((error) => { %>
+                        <li><%=error%></li>
+                    <% }) %>
+                </ul>
+            </div>
+            <% } %>
+        </div>
+        </form>
+        <div class="ui message">
+        Already have an account? <a href="/login">Click here to login</a>
+        </div>
+    </div>
+</div>
+
+    
+
+
+<%- include('includes/htmlFooter'); %>

@@ -6,11 +6,16 @@
     <a href="/threadlist">< Back to threads</a>
     <br />
     <% if(isByUser === true) { %>
+        <a href="/view/<%=thread._id%>/edit">
+            <button class="ui button">
+                Edit Thread
+            </button>
+        </a>
         <a href="/view/<%=thread._id%>/delete">
             <button class="ui red button">
                 Delete Thread
             </button>
-            </a>
+        </a>
     <% } %>
     <h1><%=thread.title%></h1>   
     <p><%=moment(thread.createdAt).calendar()%></p>

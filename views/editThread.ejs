@@ -1,0 +1,21 @@
+<%- include('includes/htmlHeader', {title: 'Edit Thread'}); %> 
+    </head>
+<body>
+
+<div class="ui container">
+    <div class="ui form">
+    <a href="/view/<%=thread.id%>"> < Back</a>
+    <h1>Edit Thread</h1>
+    <form method="POST" action="/view/<%=thread.id%>/edit">
+        <div class="field">
+            <label>Title</label>
+            <input value="<%=thread.title%>" required type="text" name="title" placeholder="Enter title">
+        </div>
+        <button class="ui primary button" type="submit">Save</button>
+    </form>
+    </div>
+</div>
+
+
+      
+<%- include('includes/htmlFooter'); %>

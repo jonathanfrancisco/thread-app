@@ -38,4 +38,17 @@ threadController.get = async (req, res, next) => {
   }
 }
 
+threadController.delete = async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const thread = await Thread.findById(id).populate('user')
+    if (thread.user.equals(req.user._id)) {
+      await Thread.findByIdAndDelete(id)
+    }
+    return res.redirect('/threadlist')
+  } catch (err) {
+    next(err)
+  }
+}
+
 module.exports = threadController

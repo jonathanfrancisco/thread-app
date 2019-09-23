@@ -1,6 +1,5 @@
 const moment = require('moment')
 const Thread = require('../models/Thread')
-const User = require('../models/User')
 
 const threadController = {}
 
@@ -31,8 +30,9 @@ threadController.create = async (req, res, next) => {
 threadController.get = async (req, res, next) => {
   try {
     const { id } = req.params
-    const thread = await Thread.findById(id)
-    return res.render('viewThread', { thread, moment })
+    const thread = await Thread.findById(id).populate('user')
+    const isByUser = thread.user.equals(req.user._id)
+    return res.render('viewThread', { thread, isByUser, moment })
   } catch (err) {
     next(err)
   }

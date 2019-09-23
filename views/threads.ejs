@@ -12,17 +12,17 @@
     
     <div class="ui link items">
        <% threads.forEach(thread => { %>
-        <a class="item" href="/view/<%=thread._id%>">
-        <div class="ui tiny image">
-        <img src="/images/jenny.jpg">   
-        </div>
-        <div class="content">
-        <div class="header"><%=thread.title%></div>
-        <div class="description">
-            <img src="/images/short-paragraph.png" />
-            <p><%= moment(thread.createdAt).calendar() %></p>
-        </div>
-        </div>
+        <a style="margin-bottom: 36px" class="item" href="/view/<%=thread._id%>">
+            <div class="ui tiny image">
+            <img src="/images/jenny.jpg">   
+            </div>
+            <div class="content">
+            <div class="header"><%=thread.title%></div>
+            <div class="description">
+                <img src="/images/short-paragraph.png" />
+                <p><%= moment(thread.createdAt).calendar() %></p>
+            </div>
+            </div>
         </a>
        <% }) %>
     </div>

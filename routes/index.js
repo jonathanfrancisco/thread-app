@@ -14,5 +14,6 @@ indexRouter.get(
 )
 indexRouter.get('/create', authenticated, threadController.renderCreatePage)
 indexRouter.post('/threadlist', authenticated, threadController.create)
+indexRouter.get('/view/:id', authenticated, threadController.get)
 
 module.exports = indexRouter

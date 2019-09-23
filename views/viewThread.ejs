@@ -1,0 +1,14 @@
+<%- include('includes/htmlHeader', {title: 'View Thread'}); %> 
+    </head>
+<body>
+
+<div class="ui container">   
+    <a href="/threadlist">< Back to threads</a>
+    <h1><%=thread.title%></h1>   
+    <p><%=moment(thread.createdAt).calendar()%></p>
+</div>
+
+
+
+      
+<%- include('includes/htmlFooter'); %>

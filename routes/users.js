@@ -13,6 +13,6 @@ usersRouter.post(
     failureRedirect: '/login'
   })
 )
-usersRouter.post('/logout', userController.logout)
+usersRouter.get('/logout', userController.logout)
 
 module.exports = usersRouter

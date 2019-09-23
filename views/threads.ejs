@@ -1,0 +1,34 @@
+<%- include('includes/htmlHeader', {title: 'Threads'}); %> 
+    </head>
+<body>
+
+<div class="ui container">   
+    <h1>Threads</h1>   
+    <a href="/create">
+    <button class="ui primary button">
+        Create New Thread
+    </button>
+    </a>
+    
+    <div class="ui link items">
+       <% threads.forEach(thread => { %>
+        <a class="item" href="/view/<%=thread._id%>">
+        <div class="ui tiny image">
+        <img src="/images/jenny.jpg">   
+        </div>
+        <div class="content">
+        <div class="header"><%=thread.title%></div>
+        <div class="description">
+            <img src="/images/short-paragraph.png" />
+            <p><%= moment(thread.createdAt).calendar() %></p>
+        </div>
+        </div>
+        </a>
+       <% }) %>
+    </div>
+</div>
+
+
+
+      
+<%- include('includes/htmlFooter'); %>

@@ -6,8 +6,6 @@ userController.renderLoginPage = (req, res) => {
   res.render('login', { error: req.flash('error') })
 }
 
-userController.login = (req, res, next) => {}
-
 userController.renderRegisterPage = (req, res) => {
   res.render('register', {
     success: req.flash('success'),
@@ -24,7 +22,7 @@ userController.register = async (req, res, next) => {
     }
     await User.register({ username }, password)
     req.flash('success', 'Registration Successful. You may now login')
-    res.redirect('/register')
+    return res.redirect('/register')
   } catch (err) {
     if (err.name === 'UserExistsError') {
       req.flash('errors', err.message)
@@ -36,7 +34,7 @@ userController.register = async (req, res, next) => {
 
 userController.logout = (req, res) => {
   req.logout()
-  res.redirect('/login')
+  return res.redirect('/login')
 }
 
 module.exports = userController

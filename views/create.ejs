@@ -1,0 +1,21 @@
+<%- include('includes/htmlHeader', {title: 'Create Thread'}); %> 
+    </head>
+<body>
+
+<div class="ui container">
+    <div class="ui form">
+    <a href="/threadlist"> < Back to threads</a>
+    <h1>Create New Thread</h1>
+    <form method="POST" action="/threadlist">
+        <div class="field">
+            <label>Title</label>
+            <input required type="text" name="title" placeholder="Enter title">
+        </div>
+        <button class="ui primary button" type="submit">Create</button>
+    </form>
+    </div>
+</div>
+
+
+      
+<%- include('includes/htmlFooter'); %>

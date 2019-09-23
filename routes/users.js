@@ -11,8 +11,7 @@ usersRouter.post(
     successRedirect: '/threadlist',
     failureFlash: true,
     failureRedirect: '/login'
-  }),
-  userController.login
+  })
 )
 usersRouter.post('/logout', userController.logout)
 

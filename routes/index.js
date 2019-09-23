@@ -7,7 +7,12 @@ const indexRouter = express.Router()
 
 indexRouter.get('/login', userController.renderLoginPage)
 indexRouter.get('/register', userController.renderRegisterPage)
-indexRouter.get('/threadlist', authenticated, threadController.threads)
+indexRouter.get(
+  '/threadlist',
+  authenticated,
+  threadController.renderThreadsPage
+)
+indexRouter.get('/create', authenticated, threadController.renderCreatePage)
 indexRouter.post('/threadlist', authenticated, threadController.create)
 
 module.exports = indexRouter

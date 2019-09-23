@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
+const Thread = require('../models/Thread')
 
 const { Schema } = mongoose
 

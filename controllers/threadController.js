@@ -1,5 +1,6 @@
 const moment = require('moment')
 const Thread = require('../models/Thread')
+const User = require('../models/User')
 
 const threadController = {}
 
@@ -16,10 +17,15 @@ threadController.renderCreatePage = (req, res) => {
   return res.render('create')
 }
 
-threadController.create = (req, res) => {
-  const { title } = req.body
-  Thread.create({ title })
-  return res.redirect('/threadlist')
+threadController.create = async (req, res, next) => {
+  try {
+    const { _id: userId } = req.user
+    const { title } = req.body
+    await Thread.create({ title, user: userId })
+    return res.redirect('/threadlist')
+  } catch (err) {
+    next(err)
+  }
 }
 
 threadController.get = async (req, res, next) => {

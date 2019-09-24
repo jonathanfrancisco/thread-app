@@ -34,7 +34,9 @@ threadController.get = async (req, res, next) => {
       return next()
     }
 
-    const thread = await Thread.findById(id).populate('user')
+    const thread = await Thread.findById(id)
+      .populate('user')
+      .populate('comments')
     if (!thread) {
       return next()
     }

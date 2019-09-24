@@ -2,6 +2,7 @@ const express = require('express')
 const authenticated = require('../middlewares/authenticated')
 const userController = require('../controllers/userController')
 const threadController = require('../controllers/threadController')
+const commentController = require('../controllers/commentController')
 
 const indexRouter = express.Router()
 
@@ -22,5 +23,6 @@ indexRouter.get(
   threadController.renderEditPage
 )
 indexRouter.post('/view/:id/edit', authenticated, threadController.edit)
+indexRouter.post('/view/:id/comments', authenticated, commentController.create)
 
 module.exports = indexRouter

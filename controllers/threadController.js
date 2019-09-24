@@ -69,7 +69,13 @@ threadController.delete = async (req, res, next) => {
 threadController.renderEditPage = async (req, res, next) => {
   try {
     const { id } = req.params
-    const thread = await Thread.findById(id)
+    if (!ObjectId.isValid(id)) {
+      return next()
+    }
+    const thread = await Thread.findById(id).populate('user')
+    if (!thread) {
+      return next()
+    }
     return res.render('editThread', { thread })
   } catch (err) {
     next(err)
@@ -83,7 +89,6 @@ threadController.edit = async (req, res, next) => {
     if (!ObjectId.isValid(id)) {
       return next()
     }
-
     const thread = await Thread.findById(id).populate('user')
     if (!thread) {
       return next()

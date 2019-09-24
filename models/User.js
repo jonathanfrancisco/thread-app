@@ -3,10 +3,7 @@ const passportLocalMongoose = require('passport-local-mongoose')
 
 const { Schema } = mongoose
 
-const userSchema = new Schema({
-  threads: [{ type: Schema.Types.ObjectId, ref: 'Thread' }],
-  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
-})
+const userSchema = new Schema({})
 userSchema.plugin(passportLocalMongoose)
 
 const User = mongoose.model('User', userSchema)

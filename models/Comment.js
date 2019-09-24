@@ -8,7 +8,6 @@ const commentSchema = new Schema(
       type: String,
       required: true
     },
-    thread: { type: Schema.Types.ObjectId, ref: 'Thread', required: true },
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true }
   },
   {

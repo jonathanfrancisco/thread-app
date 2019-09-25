@@ -1,5 +1,5 @@
 const express = require('express')
-const authenticated = require('../middlewares/authenticated')
+const isAuthenticated = require('../middlewares/authenticated')
 const userController = require('../controllers/userController')
 const threadController = require('../controllers/threadController')
 const commentController = require('../controllers/commentController')
@@ -10,23 +10,27 @@ indexRouter.get('/login', userController.renderLoginPage)
 indexRouter.get('/register', userController.renderRegisterPage)
 indexRouter.get(
   '/threadlist',
-  authenticated,
+  isAuthenticated,
   threadController.renderThreadsPage
 )
-indexRouter.get('/create', authenticated, threadController.renderCreatePage)
-indexRouter.post('/threadlist', authenticated, threadController.create)
-indexRouter.get('/view/:id', authenticated, threadController.get)
-indexRouter.get('/view/:id/delete', authenticated, threadController.delete)
+indexRouter.get('/create', isAuthenticated, threadController.renderCreatePage)
+indexRouter.post('/threadlist', isAuthenticated, threadController.create)
+indexRouter.get('/view/:id', isAuthenticated, threadController.get)
+indexRouter.get('/view/:id/delete', isAuthenticated, threadController.delete)
 indexRouter.get(
   '/view/:id/edit',
-  authenticated,
+  isAuthenticated,
   threadController.renderEditPage
 )
-indexRouter.post('/view/:id/edit', authenticated, threadController.edit)
-indexRouter.post('/view/:id/comments', authenticated, commentController.create)
+indexRouter.post('/view/:id/edit', isAuthenticated, threadController.edit)
+indexRouter.post(
+  '/view/:id/comments',
+  isAuthenticated,
+  commentController.create
+)
 indexRouter.get(
   '/view/:threadId/comments/:commentId',
-  authenticated,
+  isAuthenticated,
   commentController.delete
 )
 module.exports = indexRouter

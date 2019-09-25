@@ -1,9 +1,35 @@
+const jwt = require('jsonwebtoken')
 const User = require('../models/User')
+const { secretKey } = require('../config')
 
 const userController = {}
 
 userController.renderLoginPage = (req, res) => {
   res.render('login', { error: req.flash('error') })
+}
+
+userController.login = async (req, res, next) => {
+  try {
+    const { username, password } = req.body
+    const { user, error } = await User.authenticate()(username, password)
+    if (user) {
+      const token = jwt.sign({ _id: user._id }, secretKey)
+      res.cookie('jwt', token, {
+        httpOnly: true,
+        signed: true,
+        expires: new Date(Date.now() + 43200)
+      })
+      res.redirect('/threadlist')
+    } else if (
+      typeof error.IncorrectUsernameError !== 'undefined' ||
+      error.IncorrectPasswordError !== 'undefined'
+    ) {
+      req.flash('error', 'Password or username is incorrect')
+      res.redirect('/login')
+    }
+  } catch (err) {
+    next(err)
+  }
 }
 
 userController.renderRegisterPage = (req, res) => {
@@ -33,7 +59,11 @@ userController.register = async (req, res, next) => {
 }
 
 userController.logout = (req, res) => {
-  req.logout()
+  res.clearCookie('jwt', {
+    httpOnly: true,
+    signed: true,
+    expires: new Date(Date.now() + 43200)
+  })
   res.redirect('/login')
 }
 

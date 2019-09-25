@@ -1,5 +1,6 @@
 const moment = require('moment')
 const { ObjectId } = require('mongoose').Types
+const fs = require('fs')
 const Thread = require('../models/Thread')
 
 const threadController = {}
@@ -62,6 +63,7 @@ threadController.delete = async (req, res, next) => {
     }
     if (thread.user.equals(req.user._id)) {
       await Thread.findByIdAndDelete(id)
+      fs.unlinkSync(`./public/images/${thread.image}`)
     }
     res.redirect('/threadlist')
   } catch (err) {

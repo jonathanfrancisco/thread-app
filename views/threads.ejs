@@ -1,4 +1,15 @@
 <%- include('includes/htmlHeader', {title: 'Threads'}); %> 
+<style>
+    .description img {
+        width: 100% 
+    }
+    /* body {
+        background: url(http://whitecloak.com/static/media/bg-hack.261b4dc2.svg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    } */
+</style>
     </head>
 <body>
 
@@ -6,12 +17,14 @@
 
         
 <div class="ui container">   
-    <h1>Threads</h1>   
+    <h1>Threads</h1>
+    <div style="text-align: right">   
     <a href="/create">
     <button style="background-color: #08123C" class="ui primary button">
         Create New Thread
     </button>
     </a>
+    </div>
     
     <div class="ui link items">
        <% threads.forEach(thread => { %>
@@ -21,9 +34,11 @@
             </div>
             <div class="content">
             <div class="header"><%=thread.title%></div>
+            <div class="meta">
+                <span> <%= moment(thread.createdAt).calendar() %> by <strong style="color: #000"><%=thread.user.username%></strong></span>
+            </div>
             <div class="description">
                 <img src="/images/short-paragraph.png" />
-                <p><%= moment(thread.createdAt).calendar() %></p>
             </div>
             </div>
         </a>

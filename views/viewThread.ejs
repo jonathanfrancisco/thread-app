@@ -1,4 +1,9 @@
 <%- include('includes/htmlHeader', {title: 'View Thread'}); %> 
+    <style>
+    .description img {
+        width: 100% 
+    }
+    </style>
     </head>
 <body>
     
@@ -8,6 +13,7 @@
 <div class="ui container">   
     <a href="/threadlist">< Back to threads</a>
     <br />
+    <div style="text-align: right">   
     <% if(thread.user._id.equals(user._id)) { %>
         <a href="/view/<%=thread._id%>/edit">
             <button class="ui button">
@@ -20,10 +26,25 @@
             </button>
         </a>
     <% } %>
-    <h1><%=thread.title%></h1>   
-    <p><%=moment(thread.createdAt).calendar()%></p>
+    </div>
+    <div class="ui link items">
+    <a style="margin-bottom: 36px" class="item" href="/view/<%=thread._id%>">
+        <div class="ui tiny image">
+        <img src="/images/jenny.jpg">   
+        </div>
+        <div class="content">
+        <div class="header"><%=thread.title%></div>
+        <div class="meta">
+            <span> <%= moment(thread.createdAt).calendar() %> by <strong style="color: #000"><%=thread.user.username%></strong></span>
+        </div>
+        <div class="description">
+            <img src="/images/short-paragraph.png" />
+        </div>
+        </div>
+    </a>
+    </div>
 
-    <div class="ui large comments">
+    <div style="width: 100%" class="ui large comments">
         <h3 class="ui dividing header">Comments</h3>
         
         <% thread.comments.forEach(comment =>{  %>
@@ -61,10 +82,12 @@
         <div class="ui form">
             <form method="POST" action="/view/<%=thread.id%>/comments">
                 <div class="field">
-                    <label>Comment</label>
+                    <br />
                     <textarea required rows="2" name="body"></textarea>
                 </div>
+                <div style="text-align: right">   
                 <button style="background-color: #08123C" class="ui primary button" type="submit">Post Comment</button>
+                </div>
             </form>
         </div>
 

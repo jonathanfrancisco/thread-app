@@ -7,21 +7,21 @@ const threadController = {}
 threadController.renderThreadsPage = async (req, res, next) => {
   try {
     const threads = await Thread.find({}).sort({ createdAt: -1 })
-    return res.render('threads', { threads, moment })
+    res.render('threads', { threads, moment })
   } catch (err) {
     next(err)
   }
 }
 
 threadController.renderCreatePage = (req, res) => {
-  return res.render('create')
+  res.render('create')
 }
 
 threadController.create = async (req, res, next) => {
   try {
     const { title } = req.body
     await Thread.create({ title, user: req.user._id })
-    return res.redirect('/threadlist')
+    res.redirect('/threadlist')
   } catch (err) {
     next(err)
   }
@@ -39,7 +39,7 @@ threadController.get = async (req, res, next) => {
     if (!thread) {
       return next()
     }
-    return res.render('viewThread', { thread, user: req.user, moment })
+    res.render('viewThread', { thread, user: req.user, moment })
   } catch (err) {
     next(err)
   }
@@ -51,7 +51,6 @@ threadController.delete = async (req, res, next) => {
     if (!ObjectId.isValid(id)) {
       return next()
     }
-
     const thread = await Thread.findById(id)
     if (!thread) {
       return next()
@@ -59,7 +58,7 @@ threadController.delete = async (req, res, next) => {
     if (thread.user.equals(req.user._id)) {
       await Thread.findByIdAndDelete(id)
     }
-    return res.redirect('/threadlist')
+    res.redirect('/threadlist')
   } catch (err) {
     next(err)
   }
@@ -96,7 +95,7 @@ threadController.edit = async (req, res, next) => {
       const { title } = req.body
       await Thread.findByIdAndUpdate(id, { title })
     }
-    return res.redirect(`/view/${id}`)
+    res.redirect(`/view/${id}`)
   } catch (err) {
     next(err)
   }

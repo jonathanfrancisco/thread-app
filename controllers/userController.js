@@ -22,11 +22,11 @@ userController.register = async (req, res, next) => {
     }
     await User.register({ username }, password)
     req.flash('success', 'Registration Successful. You may now login')
-    return res.redirect('/register')
+    res.redirect('/register')
   } catch (err) {
     if (err.name === 'UserExistsError') {
       req.flash('errors', err.message)
-      return res.redirect('/register')
+      res.redirect('/register')
     }
     next(err)
   }
@@ -34,7 +34,7 @@ userController.register = async (req, res, next) => {
 
 userController.logout = (req, res) => {
   req.logout()
-  return res.redirect('/login')
+  res.redirect('/login')
 }
 
 module.exports = userController

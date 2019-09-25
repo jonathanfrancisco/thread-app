@@ -17,7 +17,7 @@ commentController.create = async (req, res, next) => {
     const { _id: user } = req.user
     thread.comments.push({ body, user })
     await thread.save()
-    return res.redirect(`/view/${id}`)
+    res.redirect(`/view/${id}`)
   } catch (err) {
     next(err)
   }

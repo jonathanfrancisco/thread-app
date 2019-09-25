@@ -21,8 +21,11 @@ threadController.renderCreatePage = (req, res) => {
 
 threadController.create = async (req, res, next) => {
   try {
+    if (!req.file) {
+      return res.redirect('/threadlist')
+    }
     const { title } = req.body
-    await Thread.create({ title, user: req.user._id })
+    await Thread.create({ title, user: req.user._id, image: req.file.filename })
     res.redirect('/threadlist')
   } catch (err) {
     next(err)

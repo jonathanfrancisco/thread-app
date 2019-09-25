@@ -8,10 +8,14 @@
     <div class="ui form">
     <a href="/threadlist"> < Back to threads</a>
     <h1>Create New Thread</h1>
-    <form method="POST" action="/threadlist">
+    <form method="POST" action="/threadlist" enctype="multipart/form-data">
         <div class="field">
             <label>Title</label>
             <input required type="text" name="title" placeholder="Enter title">
+        </div>
+        <div class="field">
+            <label>Image</label>
+            <input required type="file" name="image" placeholder="Enter title">
         </div>
         <button class="ui primary button" type="submit">Create</button>
     </form>

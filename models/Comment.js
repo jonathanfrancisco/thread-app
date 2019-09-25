@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const Thread = require('../models/Thread')
 const { Schema } = mongoose
 
 const commentSchema = new Schema(

@@ -24,5 +24,9 @@ indexRouter.get(
 )
 indexRouter.post('/view/:id/edit', authenticated, threadController.edit)
 indexRouter.post('/view/:id/comments', authenticated, commentController.create)
-
+indexRouter.get(
+  '/view/:threadId/comments/:commentId',
+  authenticated,
+  commentController.delete
+)
 module.exports = indexRouter

@@ -39,12 +39,10 @@ threadController.get = async (req, res, next) => {
         path: 'comments',
         populate: { path: 'user' }
       })
-    console.log(thread)
     if (!thread) {
       return next()
     }
-    const isByUser = thread.user.equals(req.user._id)
-    return res.render('viewThread', { thread, isByUser, moment })
+    return res.render('viewThread', { thread, user: req.user, moment })
   } catch (err) {
     next(err)
   }

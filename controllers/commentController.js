@@ -1,6 +1,5 @@
 const { ObjectId } = require('mongoose').Types
 const Thread = require('../models/Thread')
-const Comment = require('../models/Comment')
 
 const commentController = {}
 
@@ -14,11 +13,9 @@ commentController.create = async (req, res, next) => {
     if (!thread) {
       return next()
     }
-    const { body } = req.body
+    const { body } = req.body // comment body
     const { _id: user } = req.user
-    const comment = new Comment({ body, user })
-    await comment.save()
-    thread.comments.push(comment._id)
+    thread.comments.push({ body, user })
     await thread.save()
     return res.redirect(`/view/${id}`)
   } catch (err) {

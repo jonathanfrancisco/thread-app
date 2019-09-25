@@ -2,6 +2,22 @@ const mongoose = require('mongoose')
 
 const { Schema } = mongoose
 
+const commentSchema = new Schema(
+  {
+    body: {
+      type: String,
+      required: true
+    },
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true }
+  },
+  {
+    timestamps: {
+      createdAt: true,
+      updatedAt: false
+    }
+  }
+)
+
 const threadSchema = new Schema(
   {
     title: {
@@ -9,7 +25,7 @@ const threadSchema = new Schema(
       required: true
     },
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
+    comments: [commentSchema]
   },
   {
     timestamps: true

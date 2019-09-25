@@ -35,10 +35,8 @@ threadController.get = async (req, res, next) => {
     }
     const thread = await Thread.findById(id)
       .populate('user')
-      .populate({
-        path: 'comments',
-        populate: { path: 'user' }
-      })
+      .populate('comments.user')
+    console.log(thread)
     if (!thread) {
       return next()
     }

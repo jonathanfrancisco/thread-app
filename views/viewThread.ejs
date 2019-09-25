@@ -28,23 +28,27 @@
     <% } %>
     </div>
     <div class="ui link items">
-    <a style="margin-bottom: 36px" class="item" href="/view/<%=thread._id%>">
-        <div class="ui tiny image">
-        <img src="/images/jenny.jpg">   
-        </div>
+ 
         <div class="content">
-        <div class="header"><%=thread.title%></div>
-        <div class="meta">
-            <span> <%= moment(thread.createdAt).calendar() %> by <strong style="color: #000"><%=thread.user.username%></strong></span>
+        <div class="header">
+            <h1 style="font-size: 4em"><%=thread.title%></h1>    
         </div>
+        <div class="meta">
+            <span style="font-size: 1.2em"> <%= moment(thread.createdAt).calendar() %> by <strong style="color: #000"><%=thread.user.username%></strong></span>
+        </div>
+        <br />
+            <img style="width: 100%" src="/images/<%=thread.image%>">
+        <br />
+        <br />
         <div class="description">
             <img src="/images/short-paragraph.png" />
         </div>
+        <br />
         </div>
-    </a>
+  
     </div>
 
-    <div style="width: 100%" class="ui large comments">
+    <div style="max-width: 100%" class="ui large comments">
         <h3 class="ui dividing header">Comments</h3>
         
         <% thread.comments.forEach(comment =>{  %>
@@ -90,7 +94,7 @@
                 </div>
             </form>
         </div>
-
+        <br />
     </div>
 </div>
       

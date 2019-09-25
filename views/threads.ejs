@@ -26,11 +26,11 @@
     </a>
     </div>
     
-    <div class="ui link items">
+    <div class="ui link divided items">
        <% threads.forEach(thread => { %>
-        <a style="margin-bottom: 36px" class="item" href="/view/<%=thread._id%>">
-            <div class="ui tiny image">
-            <img src="/images/jenny.jpg">   
+        <a class="item" href="/view/<%=thread._id%>">
+            <div class="ui large image">
+            <img src="/images/<%=thread.image%>">   
             </div>
             <div class="content">
             <div class="header"><%=thread.title%></div>
@@ -44,6 +44,7 @@
         </a>
        <% }) %>
     </div>
+    <br />
 </div>
 
 

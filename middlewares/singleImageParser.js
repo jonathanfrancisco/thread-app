@@ -8,13 +8,11 @@ module.exports = (req, res, next) => {
     if (err) {
       return next(err)
     }
-
     const fileInfo = fileType(req.file.buffer)
     if (!fileInfo) {
       req.flash('errors', 'Invalid File')
       return res.redirect('back')
     }
-
     const isImage =
       (fileInfo.ext === 'jpg' && fileInfo.mime === 'image/jpeg') ||
       (fileInfo.ext === 'png' && fileInfo.mime === 'image/png')

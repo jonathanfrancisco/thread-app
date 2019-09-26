@@ -11,7 +11,7 @@ userController.renderLoginPage = (req, res) => {
 userController.login = async (req, res, next) => {
   try {
     const { username, password } = req.body
-    const { user, error } = await User.authenticate()(username, password)
+    const { user, err } = await User.authenticate()(username, password)
     if (user) {
       const token = jwt.sign({ _id: user._id }, secretKey)
       res.cookie('jwt', token, {
@@ -21,11 +21,13 @@ userController.login = async (req, res, next) => {
       })
       res.redirect('/threadlist')
     } else if (
-      typeof error.IncorrectUsernameError !== 'undefined' ||
-      error.IncorrectPasswordError !== 'undefined'
+      typeof err.IncorrectUsernameError !== 'undefined' ||
+      err.IncorrectPasswordError !== 'undefined'
     ) {
       req.flash('error', 'Password or username is incorrect')
       res.redirect('/login')
+    } else {
+      next(err)
     }
   } catch (err) {
     next(err)

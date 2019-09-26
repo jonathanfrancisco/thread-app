@@ -1,5 +1,4 @@
 const fs = require('fs')
-const path = require('path')
 const moment = require('moment')
 const { ObjectId } = require('mongoose').Types
 const Thread = require('../models/Thread')
@@ -23,9 +22,6 @@ threadController.renderCreatePage = (req, res) => {
 
 threadController.create = async (req, res, next) => {
   try {
-    if (!req.file) {
-      return res.redirect('/threadlist')
-    }
     const thread = await Thread.create({
       title: req.body.title,
       user: req.user._id,

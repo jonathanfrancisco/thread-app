@@ -5,11 +5,11 @@ const commentController = {}
 
 commentController.create = async (req, res, next) => {
   try {
-    const { id } = req.params // id of thread to comment on
-    if (!ObjectId.isValid(id)) {
+    const { id: threadId } = req.params
+    if (!ObjectId.isValid(threadId)) {
       return next()
     }
-    const thread = await Thread.findById(id)
+    const thread = await Thread.findById(threadId)
     if (!thread) {
       return next()
     }
@@ -17,7 +17,7 @@ commentController.create = async (req, res, next) => {
     const { _id: user } = req.user
     thread.comments.push({ body, user })
     await thread.save()
-    res.redirect(`/view/${id}`)
+    res.redirect(`/view/${threadId}`)
   } catch (err) {
     next(err)
   }

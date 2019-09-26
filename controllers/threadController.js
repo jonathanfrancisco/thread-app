@@ -1,6 +1,7 @@
+const fs = require('fs')
+const path = require('path')
 const moment = require('moment')
 const { ObjectId } = require('mongoose').Types
-const fs = require('fs')
 const Thread = require('../models/Thread')
 
 const threadController = {}
@@ -17,7 +18,7 @@ threadController.renderThreadsPage = async (req, res, next) => {
 }
 
 threadController.renderCreatePage = (req, res) => {
-  res.render('create')
+  res.render('create', { errors: req.flash('errors') })
 }
 
 threadController.create = async (req, res, next) => {
@@ -25,8 +26,12 @@ threadController.create = async (req, res, next) => {
     if (!req.file) {
       return res.redirect('/threadlist')
     }
-    const { title } = req.body
-    await Thread.create({ title, user: req.user._id, image: req.file.filename })
+    const thread = await Thread.create({
+      title: req.body.title,
+      user: req.user._id,
+      image: `${Date.now()}-${req.file.originalname}`
+    })
+    fs.writeFileSync(`./public/images/${thread.image}`, req.file.buffer)
     res.redirect('/threadlist')
   } catch (err) {
     next(err)

@@ -17,6 +17,20 @@
             <label>Image</label>
             <input required type="file" name="image" placeholder="Enter title">
         </div>
+        <% if(errors.length > 0) { %>
+        <div class="ui visible error message">
+            <div class="header">
+                There were some error(s) with your submission
+            </div>
+            <ul class="list">
+            <li>
+                <% errors.forEach(error => { %>
+                    <%=error%>
+                <% }) %>
+            </li>
+            </ul>
+        </div>
+        <% } %>
         <button style="background-color: #08123C" class="ui primary button" type="submit">Create</button>
     </form>
     </div>

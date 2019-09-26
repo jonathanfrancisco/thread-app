@@ -1,6 +1,6 @@
 const express = require('express')
 const isAuthenticated = require('../middlewares/authenticated')
-const imageUploader = require('../middlewares/imageUploader')
+const singleImageParser = require('../middlewares/singleImageParser')
 const userController = require('../controllers/userController')
 const threadController = require('../controllers/threadController')
 const commentController = require('../controllers/commentController')
@@ -18,7 +18,7 @@ indexRouter.get('/create', isAuthenticated, threadController.renderCreatePage)
 indexRouter.post(
   '/threadlist',
   isAuthenticated,
-  imageUploader.single('image'),
+  singleImageParser,
   threadController.create
 )
 indexRouter.get('/view/:id', isAuthenticated, threadController.get)
@@ -28,7 +28,12 @@ indexRouter.get(
   isAuthenticated,
   threadController.renderEditPage
 )
-indexRouter.post('/view/:id/edit', isAuthenticated, threadController.edit)
+indexRouter.post(
+  '/view/:id/edit',
+  isAuthenticated,
+  singleImageParser,
+  threadController.edit
+)
 indexRouter.post(
   '/view/:id/comments',
   isAuthenticated,

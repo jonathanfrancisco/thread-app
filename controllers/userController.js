@@ -26,9 +26,7 @@ userController.login = async (req, res, next) => {
     ) {
       req.flash('error', 'Password or username is incorrect')
       res.redirect('/login')
-    } else {
-      next(error)
-    }
+    } else next(error)
   } catch (err) {
     next(err)
   }

@@ -6,13 +6,11 @@ const commentController = {}
 commentController.create = async (req, res, next) => {
   try {
     const { id: threadId } = req.params
-    if (!ObjectId.isValid(threadId)) {
-      return next()
-    }
+    if (!ObjectId.isValid(threadId)) return next()
+
     const thread = await Thread.findById(threadId)
-    if (!thread) {
-      return next()
-    }
+    if (!thread) return next()
+
     const { body } = req.body // comment body
     const { _id: user } = req.user
     thread.comments.push({ body, user })
@@ -26,14 +24,13 @@ commentController.create = async (req, res, next) => {
 commentController.delete = async (req, res, next) => {
   try {
     const { threadId, commentId } = req.params
-    if (!ObjectId.isValid(threadId) && !ObjectId.isValid(commentId)) {
+    if (!ObjectId.isValid(threadId) && !ObjectId.isValid(commentId))
       return next()
-    }
+
     const thread = await Thread.findById(threadId)
     const comment = thread.comments.id(commentId)
-    if (!thread && !comment) {
-      return next()
-    }
+    if (!thread && !comment) return next()
+
     if (comment.user.equals(req.user._id)) {
       thread.comments.id(commentId).remove()
       await thread.save()

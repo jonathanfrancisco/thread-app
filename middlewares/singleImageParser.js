@@ -5,13 +5,9 @@ const storage = multer.memoryStorage()
 
 module.exports = (req, res, next) => {
   multer({ storage }).single('image')(req, res, err => {
-    if (err) {
-      return next(err)
-    }
-    console.log(req.file)
-    if (!req.file) {
-      next()
-    } else {
+    if (err) return next(err)
+    if (!req.file) return next()
+    else {
       const fileInfo = fileType(req.file.buffer)
       if (!fileInfo) {
         req.flash('errors', 'Invalid File')
@@ -20,9 +16,8 @@ module.exports = (req, res, next) => {
       const isImage =
         (fileInfo.ext === 'jpg' && fileInfo.mime === 'image/jpeg') ||
         (fileInfo.ext === 'png' && fileInfo.mime === 'image/png')
-      if (isImage) {
-        next()
-      } else {
+      if (isImage) next()
+      else {
         req.flash('errors', 'Only images are allowed!')
         res.redirect('back')
       }

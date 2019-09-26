@@ -25,9 +25,11 @@ threadController.create = async (req, res, next) => {
     const thread = await Thread.create({
       title: req.body.title,
       user: req.user._id,
-      image: `${Date.now()}-${req.file.originalname}`
+      image: !req.file ? null : `${Date.now()}-${req.file.originalname}`
     })
-    fs.writeFileSync(`./public/images/${thread.image}`, req.file.buffer)
+    if (thread.image) {
+      fs.writeFileSync(`./public/images/${thread.image}`, req.file.buffer)
+    }
     res.redirect('/threadlist')
   } catch (err) {
     next(err)
@@ -64,7 +66,9 @@ threadController.delete = async (req, res, next) => {
     }
     if (thread.user.equals(req.user._id)) {
       await Thread.findByIdAndDelete(id)
-      fs.unlinkSync(`./public/images/${thread.image}`)
+      if (thread.image) {
+        fs.unlinkSync(`./public/images/${thread.image}`)
+      }
     }
     res.redirect('/threadlist')
   } catch (err) {

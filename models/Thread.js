@@ -25,8 +25,7 @@ const threadSchema = new Schema(
       required: true
     },
     image: {
-      type: String,
-      required: true
+      type: String
     },
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     comments: [commentSchema]

@@ -37,7 +37,9 @@
             <span style="font-size: 1.2em"> <%= moment(thread.createdAt).calendar() %> by <strong style="color: #000"><%=thread.user.username%></strong></span>
         </div>
         <br />
-            <img style="width: 100%" src="/images/<%=thread.image%>">
+            <% if(thread.image) { %>
+                <img style="width: 100%" src="/images/<%=thread.image%>">
+            <% } %>
         <br />
         <br />
         <div class="description">

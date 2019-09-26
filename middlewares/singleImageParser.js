@@ -8,19 +8,23 @@ module.exports = (req, res, next) => {
     if (err) {
       return next(err)
     }
-    const fileInfo = fileType(req.file.buffer)
-    if (!fileInfo) {
-      req.flash('errors', 'Invalid File')
-      return res.redirect('back')
-    }
-    const isImage =
-      (fileInfo.ext === 'jpg' && fileInfo.mime === 'image/jpeg') ||
-      (fileInfo.ext === 'png' && fileInfo.mime === 'image/png')
-    if (isImage) {
+    if (!req.file) {
       next()
     } else {
-      req.flash('errors', 'Only images are allowed!')
-      res.redirect('back')
+      const fileInfo = fileType(req.file.buffer)
+      if (!fileInfo) {
+        req.flash('errors', 'Invalid File')
+        return res.redirect('back')
+      }
+      const isImage =
+        (fileInfo.ext === 'jpg' && fileInfo.mime === 'image/jpeg') ||
+        (fileInfo.ext === 'png' && fileInfo.mime === 'image/png')
+      if (isImage) {
+        next()
+      } else {
+        req.flash('errors', 'Only images are allowed!')
+        res.redirect('back')
+      }
     }
   })
 }

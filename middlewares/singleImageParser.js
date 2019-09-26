@@ -8,6 +8,7 @@ module.exports = (req, res, next) => {
     if (err) {
       return next(err)
     }
+    console.log(req.file)
     if (!req.file) {
       next()
     } else {

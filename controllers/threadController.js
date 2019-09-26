@@ -86,11 +86,10 @@ threadController.renderEditPage = async (req, res, next) => {
     if (!thread) {
       return next()
     }
-    return res.render('editThread', { thread })
+    res.render('editThread', { thread, errors: req.flash('errors') })
   } catch (err) {
     next(err)
   }
-  res.render('editThread')
 }
 
 threadController.edit = async (req, res, next) => {
@@ -99,13 +98,28 @@ threadController.edit = async (req, res, next) => {
     if (!ObjectId.isValid(id)) {
       return next()
     }
-    const thread = await Thread.findById(id).populate('user')
+    let thread = await Thread.findById(id).populate('user')
     if (!thread) {
       return next()
     }
     if (thread.user.equals(req.user._id)) {
       const { title } = req.body
-      await Thread.findByIdAndUpdate(id, { title })
+      if (req.file) {
+        if (thread.image) {
+          fs.unlinkSync(`./public/images/${thread.image}`) // delete current image
+        }
+        thread = await Thread.findByIdAndUpdate(
+          id,
+          {
+            title,
+            image: `${Date.now()}-${req.file.originalname}`
+          },
+          { new: true }
+        )
+        fs.writeFileSync(`./public/images/${thread.image}`, req.file.buffer)
+      } else {
+        await Thread.findByIdAndUpdate(id, { title })
+      }
     }
     res.redirect(`/view/${id}`)
   } catch (err) {

@@ -9,11 +9,36 @@
     <div class="ui form">
     <a href="/view/<%=thread.id%>"> < Back</a>
     <h1>Edit Thread</h1>
-    <form method="POST" action="/view/<%=thread.id%>/edit">
+    <form method="POST" action="/view/<%=thread.id%>/edit" enctype="multipart/form-data">
         <div class="field">
             <label>Title</label>
             <input value="<%=thread.title%>" required type="text" name="title" placeholder="Enter title">
+        </div>  
+        <div class="field">
+            <% if(thread.image) { %>
+                <label>Current Image</label>
+                <img style="width: 180px" src="/images/<%=thread.image%>" />
+            <% } else { %>
+                <label>No Image Available</label>
+                <img style="width: 180px" src="/images/image-placeholder.png" />
+            <% } %>
+            <label>Image</label>
+            <input type="file" name="image" placeholder="Enter title">
         </div>
+        <% if(errors.length > 0) { %>
+        <div class="ui visible error message">
+            <div class="header">
+                There were some error(s) with your submission
+            </div>
+            <ul class="list">
+            <li>
+                <% errors.forEach(error => { %>
+                    <%=error%>
+                <% }) %>
+            </li>
+            </ul>
+        </div>
+        <% } %>
         <button class="ui primary button" type="submit">Save</button>
     </form>
     </div>

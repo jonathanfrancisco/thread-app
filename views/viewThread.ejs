@@ -87,6 +87,8 @@
                 </div>
                 <div class="actions">
                     <% if(comment.user._id.equals(user._id)) { %>
+                        <a href="/view/<%=thread._id%>/comments/<%=comment._id%>/view"
+                             style="color: gray">Edit</a>
                         <a href="/view/<%=thread._id%>/comments/<%=comment._id%>"
                              style="color: #db2828">Delete</a>
                     <% } %> 

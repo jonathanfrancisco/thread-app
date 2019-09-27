@@ -44,4 +44,15 @@ indexRouter.get(
   isAuthenticated,
   commentController.delete
 )
+indexRouter.get(
+  '/view/:threadId/comments/:commentId/view',
+  isAuthenticated,
+  commentController.get
+)
+indexRouter.post(
+  '/view/:threadId/comments/:commentId/edit',
+  isAuthenticated,
+  commentController.edit
+)
+
 module.exports = indexRouter

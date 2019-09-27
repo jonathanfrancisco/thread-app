@@ -1,0 +1,24 @@
+<%- include('includes/htmlHeader', {title: 'Edit Comment'}); %> 
+    </head>
+<body>
+
+<%- include('includes/loggedInMenu') %>
+
+
+<div class="ui container">
+    <div class="ui form">
+    <a href="/view/<%=thread.id%>/comments/<%=comment.id%>/edit>"> < Back</a>
+    <h1>Edit Comment</h1>
+    <form method="POST" action="/view/<%=thread.id%>/comments/<%=comment.id%>/edit">
+        <div class="field">
+            <label>Comment</label>
+            <textarea required type="text" name="body"><%=comment.body%></textarea>
+        </div>            
+        <button class="ui primary button" type="submit">Save</button>
+    </form>
+    </div>
+</div>
+
+
+      
+<%- include('includes/htmlFooter'); %>

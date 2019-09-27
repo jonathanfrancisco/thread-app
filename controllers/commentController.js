@@ -41,4 +41,37 @@ commentController.delete = async (req, res, next) => {
   }
 }
 
+commentController.get = async (req, res, next) => {
+  try {
+    const { threadId, commentId } = req.params
+    if (!ObjectId.isValid(threadId) && !ObjectId.isValid(commentId))
+      return next()
+    const thread = await Thread.findById(threadId)
+    const comment = thread.comments.id(commentId)
+    if (!thread && !comment) return next()
+    res.render('editComment', { thread, comment })
+  } catch (err) {
+    next(err)
+  }
+}
+
+commentController.edit = async (req, res, next) => {
+  try {
+    const { threadId, commentId } = req.params
+    if (!ObjectId.isValid(threadId) && !ObjectId.isValid(commentId))
+      return next()
+    const thread = await Thread.findById(threadId)
+    const comment = thread.comments.id(commentId)
+    if (!thread && !comment) return next()
+    if (comment.user.equals(req.user._id)) {
+      const { body } = req.body
+      thread.comments.id(commentId).body = body
+      await thread.save()
+    }
+    res.redirect(`/view/${threadId}`)
+  } catch (err) {
+    next(err)
+  }
+}
+
 module.exports = commentController

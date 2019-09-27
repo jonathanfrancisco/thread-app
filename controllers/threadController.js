@@ -10,7 +10,7 @@ threadController.renderThreadsPage = async (req, res, next) => {
     const threads = await Thread.find({})
       .sort({ createdAt: -1 })
       .populate('user')
-    res.render('threads', { threads, moment })
+    res.render('threads', { threads, user: req.user, moment })
   } catch (err) {
     next(err)
   }

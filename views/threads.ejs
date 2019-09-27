@@ -39,7 +39,13 @@
             <div class="content">
             <div class="header"><%=thread.title%></div>
             <div class="meta">
-                <span> <%= moment(thread.createdAt).calendar() %> by <strong style="color: #000"><%=thread.user.username%></strong></span>
+                <span> <%= moment(thread.createdAt).calendar() %> by <strong style="color: #000">
+                    <% if(thread.user._id.equals(user._id)) { %>
+                        You
+                    <% } else { %>
+                        <%=thread.user.username%>
+                    <% } %>
+                </strong></span>
             </div>
             <div class="description">
                 <img src="/images/short-paragraph.png" />

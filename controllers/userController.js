@@ -17,7 +17,7 @@ userController.login = async (req, res, next) => {
       res.cookie('jwt', token, {
         httpOnly: true,
         signed: true,
-        expires: new Date(Date.now() + 43200)
+        maxAge: 43200
       })
       res.redirect('/threadlist')
     } else if (
@@ -62,7 +62,7 @@ userController.logout = (req, res) => {
   res.clearCookie('jwt', {
     httpOnly: true,
     signed: true,
-    expires: new Date(Date.now() + 43200)
+    maxAge: 43200
   })
   res.redirect('/login')
 }
